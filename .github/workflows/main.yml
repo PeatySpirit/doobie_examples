@@ -22,7 +22,6 @@ jobs:
       - name: Run tests
         run: sbt coverage test coverageReport
   sonarcloud:
-    needs: build
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
