@@ -17,5 +17,6 @@ class ModelsTest extends AnyFunSuite with Matchers {
     task.name shouldEqual "name"
     task.frequency shouldEqual Frequency.Monthly
     task.id shouldEqual 1
+    task.owner shouldEqual "owner"
   }
 }
