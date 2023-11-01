@@ -20,7 +20,7 @@ jobs:
       - name: Check formatting
         run: sbt scalafmtCheckAll
       - name: Run tests
-        run: sbt coverage test coverageReport
+        run: sbt test
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
