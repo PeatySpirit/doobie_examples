@@ -33,11 +33,7 @@ jobs:
     - name: Check formatting
       run: sbt scalafmtCheckAll
     - name: Run tests
-      run: |
-        sbt
-        -Dsonar.tests=src/test/scala \
-        -Dsonar.scala.coverage.reportPaths=target/scala-2.13/scoverage-report/scoverage.xml \
-        coverage test coverageReport
+      run: sbt coverage test coverageReport
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
