@@ -15,5 +15,6 @@ class ModelsTest extends AnyFunSuite with Matchers {
     val instance = Instance("id1", "display1")
     val task = TaskDefinition(1, "name", Some("details"), "owner", "2021-01-01", Frequency.Monthly, instance)
     task.name shouldEqual "name"
+    task.frequency shouldEqual Frequency.Monthly
   }
 }
