@@ -1,0 +1,17 @@
+.DS_Store
+logs
+target
+/.bsp
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+/.metals
+metals.sbt
+.bloop
+log
+samples
+awsinfo
+elco_info

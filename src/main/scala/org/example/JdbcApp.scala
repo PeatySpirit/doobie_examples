@@ -9,11 +9,12 @@ object JdbcApp extends App {
 
   def getTasks(instance: Instance)(implicit c: Connection): List[TaskDefinition] = {
     var ps: PreparedStatement = null
-    var rs: ResultSet = null
-    val res = ListBuffer.empty[TaskDefinition]
+    var rs: ResultSet         = null
+    val res                   = ListBuffer.empty[TaskDefinition]
 
     try {
-      ps = c.prepareStatement(s"select t.id, name, details, owner, starting_date, frequency, i.id, i.display FROM baconjam.manual_task_definitions t join baconjam.manual_task_instances i on t.instance=i.id  where instance=? and deleted_ts is null order by frequency, name")
+      ps = c.prepareStatement(
+        s"select t.id, name, details, owner, starting_date, frequency, i.id, i.display FROM baconjam.manual_task_definitions t join baconjam.manual_task_instances i on t.instance=i.id  where instance=? and deleted_ts is null order by frequency, name")
       ps.setString(1, instance.id)
       rs = ps.executeQuery
       while (rs.next) {
@@ -25,9 +26,10 @@ object JdbcApp extends App {
           rs.getString(5),
           Frequency.stringToFrequency(rs.getString(6)),
           Models.Instance(rs.getString(7), rs.getString(8))
-          )
+        )
       }
-    } finally {
+    }
+    finally {
       if (rs != null) rs.close
       if (ps != null) ps.close
     }
@@ -35,7 +37,7 @@ object JdbcApp extends App {
     res.toList
   }
 
-  Using.resource(DatabaseConnection.get()){ implicit c =>
+  Using.resource(DatabaseConnection.get()) { implicit c =>
     println(getTasks(Instance("dqm", "DQM")).mkString("\n"))
   }
 }
