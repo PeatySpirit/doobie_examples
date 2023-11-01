@@ -12,15 +12,16 @@ object Models {
     implicit val putFrequency: Put[Frequency] = Put[String].contramap(_.toString)
 
     def stringToFrequency(s: String) = s match {
-      case "Weekly" => Weekly
-      case "Monthly" => Monthly
+      case "Weekly"    => Weekly
+      case "Monthly"   => Monthly
       case "Quarterly" => Quarterly
-      case s => throw new IllegalArgumentException(s"Invalid Frequency value: $s")
+      case s           => throw new IllegalArgumentException(s"Invalid Frequency value: $s")
     }
   }
 
   case class Instance(id: String, display: String)
 
-  case class TaskDefinition(id: Int, name: String, details: Option[String], owner: String, startingDate: String, frequency: Frequency, instance: Instance)
+  case class TaskDefinition(id: Int, name: String, details: Option[String], owner: String, startingDate: String,
+                            frequency: Frequency, instance: Instance)
 
 }
