@@ -21,19 +21,11 @@ jobs:
         run: sbt scalafmtCheckAll
       - name: Run tests
         run: sbt test
-  sonarcloud:
-    name: SonarCloud
+  security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Generate coverage
-        run: sbt coverage test coverageReport
-      - name: SonarCloud scan fixed
-        uses: pervasive-cats/sonarcloud-scoverage-fix@v1.0.0
-        with:
-          scoverageReport: target/scala-2.13/scoverage-report/scoverage.xml
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/scala@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
